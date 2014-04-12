@@ -1,14 +1,12 @@
 #!/usr/bin/lein exec
 
-(use 'clojure.java.io) 
+(defn read-int[]
+  (let [line (read-line)]
+    (Integer/parseInt line)))
 
-(defn read-in [file]
-  (line-seq (reader file)))
+(defn main[]
+  (dotimes [x (read-int)]
+    (print (str "Case #" (inc x) ": "))
+    (println "ANSWER")))
 
-(defn write-to [file output]
-  (with-open [the-writer (writer file :append true)]
-    (.write the-writer output)))
-
-(let [input-file (nth *command-line-args* 1)
-      output-file (nth *command-line-args* 2)]
-   (write-to output-file (str (read-in input-file))))
+(main)
