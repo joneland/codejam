@@ -1,4 +1,4 @@
-#!/usr/bin/lein exec
+#!/usr/bin/env lein-exec
 
 (defn read-int[]
   (let [line (read-line)]

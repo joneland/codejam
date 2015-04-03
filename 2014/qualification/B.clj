@@ -1,4 +1,4 @@
-#!/usr/bin/lein exec
+#!/usr/bin/env lein-exec
 
 (use '[clojure.string :only (split)])
 (use 'clojure.java.io)
