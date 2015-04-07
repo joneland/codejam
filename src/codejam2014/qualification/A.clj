@@ -1,6 +1,7 @@
 #!/usr/bin/env lein-exec
+(ns codejam2014.qualification.A)
 
-(use '[clojure.string :only (split)])
+(use '[clojure.string :only [split]])
 (use 'clojure.java.io)
 
 (defn write-to [file output]
@@ -24,6 +25,7 @@
       :else "Volunteer cheated!")))
 
 (defn main[]
+  (println "Ready for input")
   (dotimes [x (read-int)]
     (let [first-answer (read-int)
           a1 (read-ints)
