@@ -1,7 +1,8 @@
 (ns codejam2014.qualification.B
   (:gen-class)
-  (:require [clojure.string :as string]
-            [clojure.java.io :as io]))
+  (:require
+    [clojure.string :as string]
+    [clojure.java.io :as io]))
 
 (defn write-to [file output]
   (with-open [the-writer (io/writer file :append true)]
