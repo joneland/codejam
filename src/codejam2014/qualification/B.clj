@@ -1,11 +1,10 @@
-#!/usr/bin/env lein-exec
-(ns codejam2014.qualification.B)
-
-(use '[clojure.string :only [split]])
-(use 'clojure.java.io)
+(ns codejam2014.qualification.B
+  (:gen-class)
+  (:require [clojure.string :as string]
+            [clojure.java.io :as io]))
 
 (defn write-to [file output]
-  (with-open [the-writer (writer file :append true)]
+  (with-open [the-writer (io/writer file :append true)]
     (.write the-writer output)))
 
 (defn read-int[]
@@ -14,7 +13,7 @@
 
 (defn read-doubles[]
   (let [line (read-line)]
-    (vec (map #(Double/parseDouble %) (split line #"\s+")))))
+    (vec (map #(Double/parseDouble %) (string/split line #"\s+")))))
 
 (defn solve[input]
   (let [[c f x] input
@@ -33,11 +32,8 @@
                (+ cps f)
                (+ farm-penalties next-farm-penalty)))))))
 
-
-(defn main[]
-	(println "Ready for input")
+(defn -main[]
+	(println "Paste input")
   (dotimes [x (read-int)]
     (let [input (read-doubles)]
     (write-to "B_output.txt" (str "Case #" (inc x) ": " (solve input) "\n")))))
-
-(main)
