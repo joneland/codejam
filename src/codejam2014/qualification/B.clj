@@ -1,6 +1,7 @@
 #!/usr/bin/env lein-exec
+(ns codejam2014.qualification.B)
 
-(use '[clojure.string :only (split)])
+(use '[clojure.string :only [split]])
 (use 'clojure.java.io)
 
 (defn write-to [file output]
@@ -23,7 +24,7 @@
           farm-penalties 0]
 
      (let [next-farm-penalty (/ c cps)
-           time-to-reach-x (/ x (+ cps f)) 
+           time-to-reach-x (/ x (+ cps f))
            next-time (+ farm-penalties next-farm-penalty time-to-reach-x)]
 
         (if (< current-time next-time)
@@ -34,6 +35,7 @@
 
 
 (defn main[]
+	(println "Ready for input")
   (dotimes [x (read-int)]
     (let [input (read-doubles)]
     (write-to "B_output.txt" (str "Case #" (inc x) ": " (solve input) "\n")))))
