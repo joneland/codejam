@@ -1,7 +1,6 @@
 (ns codejam2010.africa.qualification.C
   (:gen-class)
   (:require
-    [clojure.string :as string]
      [clojure.java.io :as io]))
 
 (def mapped-values

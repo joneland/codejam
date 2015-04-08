@@ -24,7 +24,7 @@
 (defn -main []
   (println "Paste input")
   (dotimes [x (read-int)]
-    (let [vector-length (read-int)
+    (let [unimportant-value (read-int)
           vector1 (read-ints)
           vector2 (read-ints)]
       (write-to "A_output.txt" (str "Case #" (inc x) ": " (solve vector1 vector2) "\n")))))
