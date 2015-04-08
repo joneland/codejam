@@ -14,6 +14,14 @@
   "Bad magician!"
   (A/solve [1 2 3 4] [3 4 5 6]))
 
+(expect
+  "Bad magician!"
+  (A/solve [1 2 3 4] [2 3 4 5]))
+
+(expect
+  "Bad magician!"
+  (A/solve [1 2 3 4] [1 2 3 4]))
+
 ;; Volunteer cheated when no matching number in row 1 and 2
 (expect
   "Volunteer cheated!"
