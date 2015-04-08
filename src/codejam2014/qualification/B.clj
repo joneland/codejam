@@ -4,18 +4,6 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
-(defn write-to [file output]
-  (with-open [the-writer (io/writer file :append true)]
-    (.write the-writer output)))
-
-(defn read-int []
-  (let [line (read-line)]
-    (Integer/parseInt line)))
-
-(defn read-doubles []
-  (let [line (read-line)]
-    (vec (map #(Double/parseDouble %) (string/split line #"\s+")))))
-
 (defn solve [input]
   (let [[c f x] input
         no-farms (/ x 2)]
@@ -32,6 +20,19 @@
           (recur next-time
                  (+ cps f)
                  (+ farm-penalties next-farm-penalty)))))))
+
+;; --- infrastructure ---
+(defn write-to [file output]
+  (with-open [the-writer (io/writer file :append true)]
+    (.write the-writer output)))
+
+(defn read-int []
+  (let [line (read-line)]
+    (Integer/parseInt line)))
+
+(defn read-doubles []
+  (let [line (read-line)]
+    (vec (map #(Double/parseDouble %) (string/split line #"\s+")))))
 
 (defn -main []
   (println "Paste input")

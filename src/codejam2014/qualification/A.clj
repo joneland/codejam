@@ -4,6 +4,15 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
+(defn solve [row1 row2]
+  (let [candidates (filter #(< 1 (val %)) (frequencies (flatten [row1 row2])))
+        occurances (count candidates)]
+    (cond
+      (= 1 occurances) (ffirst candidates)
+      (< 1 occurances) "Bad magician!"
+      :else "Volunteer cheated!")))
+
+;; --- infrastructure ---
 (defn write-to [file output]
   (with-open [the-writer (io/writer file :append true)]
     (.write the-writer output)))
@@ -15,14 +24,6 @@
 (defn read-ints []
   (let [line (read-line)]
     (vec (map #(Integer/parseInt %) (string/split line #"\s+")))))
-
-(defn solve [row1 row2]
-  (let [candidates (filter #(< 1 (val %)) (frequencies (flatten [row1 row2])))
-        occurances (count candidates)]
-    (cond
-      (= 1 occurances) (ffirst candidates)
-      (< 1 occurances) "Bad magician!"
-      :else "Volunteer cheated!")))
 
 (defn -main []
   (println "Paste input")
