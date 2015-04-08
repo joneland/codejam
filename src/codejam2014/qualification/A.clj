@@ -4,8 +4,9 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
-(defn solve [row1 row2]
+(defn solve
   "Problem A. Magic Trick"
+  [row1 row2]
   (let [candidates (filter #(< 1 (val %)) (frequencies (flatten [row1 row2])))
         occurances (count candidates)]
     (cond

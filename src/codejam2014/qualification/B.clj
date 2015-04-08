@@ -4,8 +4,9 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
-(defn solve [input]
+(defn solve
   "Problem B. Cookie Clicker Alpha"
+  [input]
   (let [[c f x] input
         no-farms (/ x 2)]
     (loop [current-time no-farms

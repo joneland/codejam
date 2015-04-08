@@ -4,8 +4,9 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
-(defn solve [vector1 vector2]
+(defn solve
   "Problem A. Minimum Scalar Product"
+  [vector1 vector2]
   (reduce + (map * (sort vector1) (reverse (sort vector2)))))
 
 ;; --- infrastructure ---

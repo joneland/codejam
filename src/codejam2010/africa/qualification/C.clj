@@ -14,8 +14,9 @@
     (if (= (first x) (first y))
       \space)))
 
-(defn solve [text]
+(defn solve
   "Problem C. T9 Spelling"
+  [text]
   (loop [data (seq text)
          result ""]
     (if (empty? data)
