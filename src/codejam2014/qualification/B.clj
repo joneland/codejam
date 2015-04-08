@@ -5,6 +5,7 @@
     [clojure.java.io :as io]))
 
 (defn solve [input]
+  "Problem B. Cookie Clicker Alpha"
   (let [[c f x] input
         no-farms (/ x 2)]
     (loop [current-time no-farms

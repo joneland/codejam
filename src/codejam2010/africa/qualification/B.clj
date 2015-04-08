@@ -5,6 +5,7 @@
     [clojure.java.io :as io]))
 
 (defn solve [words]
+  "Problem B. Reverse Words"
   (string/join \space (reverse (string/split words #"\s+"))))
 
 ;; --- infrastructure ---
