@@ -4,14 +4,15 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
-(defn indicies [pred coll]
-  (keep-indexed #(when (pred %2) %1) coll))
+(defn drop-index [coll index]
+  (remove #(= (nth coll index) %) coll))
 
-;; map-indexed, repeat, remove nth, for + x y, return when equal to credit
 (defn solve
   "Problem A. Store Credit"
   [credit number-of-items price-of-items]
-  "2 3")
+  (let [indexed-items (map-indexed vector price-of-items)
+        eligible-permutations (map (partial drop-index indexed-items) (range number-of-items))]
+    eligible-permutations))
 
 ;; --- infrastructure ---
 (defn write-to [file output]

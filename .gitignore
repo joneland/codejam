@@ -3,3 +3,5 @@
 *output*.txt
 target/
 pom.xml
+.lein*
+.nrepl*
