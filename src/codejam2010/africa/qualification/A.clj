@@ -4,6 +4,10 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
+(defn indicies [pred coll]
+  (keep-indexed #(when (pred %2) %1) coll))
+
+;; map-indexed, repeat, remove nth, for + x y, return when equal to credit
 (defn solve
   "Problem A. Store Credit"
   [credit number-of-items price-of-items]
