@@ -1,0 +1,16 @@
+items [1 2 3]
+
+first items - 1
+while items not nil, drop first, get first - 2
+	[1 2]
+	while item not nil, drop first, get first - 3
+		[1 3]
+when items nil, drop first, if length => 2 then repeat - items [2 3]
+first items - 2
+while items not nil, drop first, get first - 3
+	[2 3]
+when items nil, drop first, if length => 2 then repeat - items [3]
+end
+
+all combos = [[1 2] [1 3] [2 3]]
+

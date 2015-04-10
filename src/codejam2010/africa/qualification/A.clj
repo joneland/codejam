@@ -4,15 +4,19 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
-(defn drop-index [coll index]
-  (remove #(= (nth coll index) %) coll))
+(defn combinations [coll]
+  (let [tails (take-while next (iterate rest coll))]
+    (mapcat
+      (fn [[first-item & rest-items]]
+        (map #(vector first-item %) rest-items)) tails)))
 
 (defn solve
   "Problem A. Store Credit"
   [credit number-of-items price-of-items]
-  (let [indexed-items (map-indexed vector price-of-items)
-        eligible-permutations (map (partial drop-index indexed-items) (range number-of-items))]
-    eligible-permutations))
+  (let [eligible-items (combinations (map-indexed vector price-of-items))
+        matching-items (flatten (keep #(if (= credit (+ (second (first %)) (second (second %)))) (map first %)) eligible-items))
+        incremented (map inc matching-items)]
+    (str (first incremented) " " (second incremented))))
 
 ;; --- infrastructure ---
 (defn write-to [file output]
