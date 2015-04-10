@@ -13,8 +13,10 @@
 (defn solve
   "Problem A. Store Credit"
   [credit number-of-items price-of-items]
-  (let [eligible-items (combinations (map-indexed vector price-of-items))
-        matching-items (flatten (keep #(if (= credit (+ (second (first %)) (second (second %)))) (map first %)) eligible-items))
+  (let [indexed-items (map-indexed vector price-of-items)
+        eligible-items (filter #(> credit (second %)) indexed-items)
+        eligible-combinations (combinations eligible-items)
+        matching-items (flatten (keep #(if (= credit (+ (second (first %)) (second (second %)))) (map first %)) eligible-combinations))
         incremented (map inc matching-items)]
     (str (first incremented) " " (second incremented))))
 
