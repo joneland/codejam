@@ -45,7 +45,6 @@
   (let [line (read-line)]
     (vec (map #(Integer/parseInt %) (string/split line #"\s+")))))
 
-
 (defn -main []
   (println "Paste input")
   (dotimes [x (read-int)]
