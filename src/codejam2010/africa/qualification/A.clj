@@ -17,8 +17,8 @@
         eligible-items (filter #(> credit (second %)) indexed-items)
         eligible-combinations (combinations eligible-items)
         matching-items (flatten (keep #(if (= credit (+ (second (first %)) (second (second %)))) (map first %)) eligible-combinations))
-        incremented (map inc matching-items)]
-    (str (first incremented) " " (second incremented))))
+        matching-indicies (map inc matching-items)]
+    (str (first matching-indicies) " " (second matching-indicies))))
 
 ;; --- infrastructure ---
 (defn write-to [file output]
