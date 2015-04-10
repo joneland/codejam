@@ -7,7 +7,10 @@
 (defn solve
   "Problem B. Reverse Words"
   [words]
-  (string/join \space (reverse (string/split words #"\s+"))))
+  (->>
+    (string/split words #"\s+")
+    (reverse)
+    (string/join \space)))
 
 ;; --- infrastructure ---
 (defn write-to [file output]
