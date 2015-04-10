@@ -15,7 +15,7 @@
 (defn filter-eligible [credit items]
   (filter #(> credit (second %)) items))
 
-(defn filter-matching-combination [credit eligible-combinations]
+(defn filter-matching-combination-indicies [credit eligible-combinations]
   (flatten (keep #(if (= credit (+ (second (first %)) (second (second %)))) (map first %)) eligible-combinations)))
 
 (defn format-result [indicies]
@@ -23,12 +23,12 @@
 
 (defn solve
   "Problem A. Store Credit"
-  [credit number-of-items price-of-items]
+  [credit price-of-items]
   (->>
     (map-indexed vector price-of-items)
     (filter-eligible credit)
     (combinations)
-    (filter-matching-combination credit)
+    (filter-matching-combination-indicies credit)
     (map inc)
     (format-result)))
 
@@ -49,6 +49,6 @@
   (println "Paste input")
   (dotimes [x (read-int)]
     (let [credit (read-int)
-          number-of-items (read-int)
+          unused (read-int)
           cost-of-items (read-ints)]
-      (write-to "A_output.txt" (str "Case #" (inc x) ": " (solve credit number-of-items cost-of-items) "\n")))))
+      (write-to "A_output.txt" (str "Case #" (inc x) ": " (solve credit cost-of-items) "\n")))))
