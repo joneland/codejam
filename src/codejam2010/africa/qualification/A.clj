@@ -4,21 +4,33 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
-(defn combinations [coll]
+(defn combinations
+  "Creates all permutations of collection"
+  [coll]
   (let [tails (take-while next (iterate rest coll))]
     (mapcat
       (fn [[first-item & rest-items]]
         (map #(vector first-item %) rest-items)) tails)))
 
+(defn filter-eligible [credit items]
+  (filter #(> credit (second %)) items))
+
+(defn filter-matching-combination [credit eligible-combinations]
+  (flatten (keep #(if (= credit (+ (second (first %)) (second (second %)))) (map first %)) eligible-combinations)))
+
+(defn format-result [indicies]
+  (format "%d %d" (first indicies) (second indicies)))
+
 (defn solve
   "Problem A. Store Credit"
   [credit number-of-items price-of-items]
   (let [indexed-items (map-indexed vector price-of-items)
-        eligible-items (filter #(> credit (second %)) indexed-items)
+        eligible-items (filter-eligible credit indexed-items)
         eligible-combinations (combinations eligible-items)
-        matching-items (flatten (keep #(if (= credit (+ (second (first %)) (second (second %)))) (map first %)) eligible-combinations))
-        matching-indicies (map inc matching-items)]
-    (str (first matching-indicies) " " (second matching-indicies))))
+        matching-items (filter-matching-combination credit eligible-combinations)
+        matching-indicies (map inc matching-items)
+        result (format-result matching-indicies)]
+    result))
 
 ;; --- infrastructure ---
 (defn write-to [file output]
