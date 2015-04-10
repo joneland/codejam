@@ -24,13 +24,13 @@
 (defn solve
   "Problem A. Store Credit"
   [credit number-of-items price-of-items]
-  (let [indexed-items (map-indexed vector price-of-items)
-        eligible-items (filter-eligible credit indexed-items)
-        eligible-combinations (combinations eligible-items)
-        matching-items (filter-matching-combination credit eligible-combinations)
-        matching-indicies (map inc matching-items)
-        result (format-result matching-indicies)]
-    result))
+  (->>
+    (map-indexed vector price-of-items)
+    (filter-eligible credit)
+    (combinations)
+    (filter-matching-combination credit)
+    (map inc)
+    (format-result)))
 
 ;; --- infrastructure ---
 (defn write-to [file output]
