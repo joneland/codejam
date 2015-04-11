@@ -20,12 +20,15 @@
   (if (= 1 (count crowd))
     (second (first crowd))
     (reduce
-      (fn [total shyness-level]
-        (if (< total (first shyness-level))
-          (-> (first shyness-level)
-            (+ (second shyness-level)))
-          (-> (second shyness-level)
-            (+ total))))
+      (fn [total element]
+        (let [shyness-level (first element)
+              person-count (second element)]
+          (cond
+            (and (< total shyness-level) (not= 0 person-count))
+              (+ total (- shyness-level total) person-count)
+            (and (>= total shyness-level) (not= 0 person-count))
+              (+ total person-count)
+            :else total)))
       (first (second crowd))
       (rest crowd))))
 
@@ -33,8 +36,11 @@
   "Problem A. Standing Ovation"
   [crowd]
   (let [target (crowd-total-after-adding-guests (indexed-crowd crowd))
-        current (crowd-total-before-adding-guests crowd)]
-    (- target current)))
+        current (crowd-total-before-adding-guests crowd)
+        result (- target current)]
+    (if (< 0 result)
+      result
+      0)))
 
 ;; --- infrastructure ---
 (defn write-to [file output]

@@ -7,9 +7,12 @@
   (A/indexed-crowd "11111"))
 
 (expect
+  [[0 3] [1 4] [2 1] [3 0] [4 0] [5 1]]
+  (A/indexed-crowd "341001"))
+
+(expect
   [[0 1]]
   (A/indexed-crowd "1"))
-
 
 (expect
   9
@@ -18,6 +21,10 @@
 (expect
   4
   (A/crowd-total-before-adding-guests "110011"))
+
+(expect
+  9
+  (A/crowd-total-before-adding-guests "341001"))
 
 (expect
   1
@@ -34,6 +41,10 @@
 (expect
   10
   (A/crowd-total-after-adding-guests [[0 0] [1 9]]))
+
+(expect
+  10
+  (A/crowd-total-after-adding-guests [[0 3] [1 4] [2 1] [3 0] [4 0] [5 1]]))
 
 (expect
   1
