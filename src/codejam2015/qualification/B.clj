@@ -5,9 +5,9 @@
     [clojure.java.io :as io]))
 
 (defn solve
-  "Problem B. XXX"
-  [input]
-  input)
+  "Problem B. Infinite House of Pancakes"
+  [non-empty-plates pancakes]
+  (println non-empty-plates pancakes))
 
 ;; --- infrastructure ---
 (defn write-to [file output]
@@ -18,8 +18,13 @@
   (let [line (read-line)]
     (Integer/parseInt line)))
 
+(defn read-ints []
+  (let [line (read-line)]
+    (vec (map #(Integer/parseInt %) (string/split line #"\s+")))))
+
 (defn -main []
   (println "Paste input")
   (dotimes [x (read-int)]
-    (let [input (read-line)]
-      (write-to "B_output.txt" (str "Case #" (inc x) ": " (solve input) "\n")))))
+    (let [non-empty-plates (read-int)
+          pancakes (read-ints)]
+      (write-to "B_output.txt" (str "Case #" (inc x) ": " (solve non-empty-plates pancakes) "\n")))))
