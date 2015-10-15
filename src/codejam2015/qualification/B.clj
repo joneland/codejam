@@ -4,10 +4,28 @@
     [clojure.string :as string]
     [clojure.java.io :as io]))
 
+(defn split-pancakes [amount]
+  (condp = (rem amount 2)
+    0 [(quot amount 2) (quot amount 2)]
+    1 [(inc (quot amount 2)) (quot amount 2)]))
+
+(defn time-to-eat [pancakes]
+  (loop [p pancakes]
+    (if (empty? (filter #(<= 4 %) p))
+      (do
+        (+ (- (count p) (count pancakes)) (apply max p)))
+      (recur (flatten (keep #(if (<= 4 %) (split-pancakes %) %) p))))))
+
 (defn solve
   "Problem B. Infinite House of Pancakes"
   [non-empty-plates pancakes]
-  (println non-empty-plates pancakes))
+  (let [max-minutes (apply max pancakes)]
+    (if (> 4 max-minutes)
+      max-minutes
+      (let [over-time (time-to-eat (filter #(<= 4 %) pancakes))]
+        (if (< over-time max-minutes)
+          over-time
+          max-minutes)))))
 
 ;; --- infrastructure ---
 (defn write-to [file output]
