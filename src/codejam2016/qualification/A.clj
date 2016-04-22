@@ -10,17 +10,21 @@
 (defn digits [number]
   (map #(Integer/parseInt %) (map str (seq (str number)))))
 
+(defn series-as-digits [number]
+  (lazy-seq (map digits (map #(* number (inc %)) (range)))))
+
+(defn numbers-left-to-find [outstanding digits]
+  (cset/difference outstanding (into #{} digits)))
+
 (defn final-number-before-sleep [x]
-  (let [x-series (lazy-seq (map digits (map #(* x (inc %)) (range))))
-         outstanding-digits (cset/difference full-house (into #{} (digits x)))]
-    (reduce
-      (fn [outstanding number]
-        (let [result (cset/difference outstanding (into #{} number))]
-          (if (empty? result)
-            (reduced (apply str number))
-            result)))
-      outstanding-digits
-      x-series)))
+  (reduce
+    (fn [outstanding number]
+      (let [result (numbers-left-to-find outstanding number)]
+        (if (empty? result)
+          (reduced (apply str number))
+          result)))
+    (numbers-left-to-find full-house (digits x))
+    (series-as-digits x)))
 
 (defn solve
   "Problem A. Counting Sheep"
