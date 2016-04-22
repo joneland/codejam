@@ -2,7 +2,8 @@
   (:gen-class)
   (:require
     [clojure.string :as string]
-    [clojure.java.io :as io]))
+    [clojure.java.io :as io]
+    [clojure.set :as cset]))
 
 (def full-house #{1 2 3 4 5 6 7 8 9 0})
 
@@ -10,13 +11,16 @@
   (map #(Integer/parseInt %) (map str (seq (str number)))))
 
 (defn final-number-before-sleep [x]
-  (loop [x-series (lazy-seq (map #(* x (inc %)) (range)))
-         tally (into #{} (digits x))]
-    (let [current-x (first x-series)
-          updated-series (into tally (digits current-x))]
-      (if (= full-house updated-series)
-        current-x
-        (recur (rest x-series) updated-series)))))
+  (let [x-series (lazy-seq (map digits (map #(* x (inc %)) (range))))
+         outstanding-digits (cset/difference full-house (into #{} (digits x)))]
+    (reduce
+      (fn [outstanding number]
+        (let [result (cset/difference outstanding (into #{} number))]
+          (if (empty? result)
+            (reduced (apply str number))
+            result)))
+      outstanding-digits
+      x-series)))
 
 (defn solve
   "Problem A. Counting Sheep"
