@@ -5,3 +5,8 @@ target/
 pom.xml
 .lein*
 .nrepl*
+.gradle
+build/
+out/
+outputs/
+inputs/
